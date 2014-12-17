@@ -24,7 +24,7 @@ file node['sumologic']['sumo_conf_path'] do
   action :delete
 end
 
-file node['sumologic']['sumo_json_path'] do
-  action :delete
-end
+#file node['sumologic']['sumo_json_path'] do
+#  action :delete
+#end
 

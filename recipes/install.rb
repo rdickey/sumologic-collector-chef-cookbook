@@ -43,13 +43,14 @@ directory node['sumologic']['installDir']  do
   end
 
   recursive true
-  action :create
+  action :create_if_missing
 end
 
 Chef::Log.info "  Downloading Sumo Logic installer from #{node['sumologic']['downloadURL']}"
 
 remote_file "#{node['sumologic']['installDir']}/#{node['sumologic']['installerName']}" do
   source node['sumologic']['downloadURL']
+  action :create_if_missing
 
   unless platform?('windows')
     mode '0644'
@@ -61,5 +62,5 @@ Chef::Log.info "  Installing Sumo Logic director at #{node['sumologic']['install
 execute "Deploy Sumo Collector" do
   command node['sumologic']['installerCmd']
   cwd node['sumologic']['installDir']
-  timeout 3600
+  timeout 300
 end
