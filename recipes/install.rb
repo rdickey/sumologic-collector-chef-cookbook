@@ -43,7 +43,7 @@ directory node['sumologic']['installDir']  do
   end
 
   recursive true
-  action :create_if_missing
+  action :create
 end
 
 Chef::Log.info "  Downloading Sumo Logic installer from #{node['sumologic']['downloadURL']}"
