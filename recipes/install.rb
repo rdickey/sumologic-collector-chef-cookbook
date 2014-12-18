@@ -46,14 +46,25 @@ directory node['sumologic']['installDir']  do
   action :create
 end
 
+directory node['sumologic']['installerDir']  do
+  unless platform?('windows')
+    owner 'root'
+    group 'root'
+    mode '0755'
+  end
+
+  recursive true
+  action :create
+end
+
 Chef::Log.info "  Downloading Sumo Logic installer from #{node['sumologic']['downloadURL']}"
 
-remote_file "#{node['sumologic']['installDir']}/#{node['sumologic']['installerName']}" do
+remote_file "#{node['sumologic']['installerDir']}/#{node['sumologic']['installerName']}" do
   source node['sumologic']['downloadURL']
   action :create_if_missing
 
   unless platform?('windows')
-    mode '0644'
+    mode '0700'
   end
 end
 
@@ -61,6 +72,6 @@ Chef::Log.info "  Installing Sumo Logic director at #{node['sumologic']['install
 
 execute "Deploy Sumo Collector" do
   command node['sumologic']['installerCmd']
-  cwd node['sumologic']['installDir']
+  cwd node['sumologic']['installerDir']
   timeout 300
 end

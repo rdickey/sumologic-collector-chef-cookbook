@@ -65,6 +65,9 @@ case platform
         # Install Path
         default['sumologic']['installDir']     = '/opt/SumoCollector'
 
+        # Installer Path
+        default['sumologic']['installerDir']     = '/opt/SumoInstaller'
+
         # Installer Name
         default['sumologic']['installerName'] = node['kernel']['machine'] =~ /^i[36']86$/ ? 'SumoCollector_linux32.sh' : 'SumoCollector_linux64.sh'
 
@@ -82,6 +85,10 @@ case platform
     when 'windows'
         # Install Path
         default['sumologic']['installDir']     = 'C:/sumo'  # We'd like to set this to C:/Program Files/Sumo Logic Collector', but there are issues with the Program Files directory.
+                                                            # See this for more info: https://tickets.opscode.com/browse/CHEF-4453
+
+        # Install Path
+        default['sumologic']['installerDir']     = 'C:/sumo'  # We'd like to set this to C:/Program Files/Sumo Logic Collector', but there are issues with the Program Files directory.
                                                             # See this for more info: https://tickets.opscode.com/browse/CHEF-4453
 
         # Installer Name
@@ -103,6 +110,9 @@ case platform
 
         # Install Path
         default['sumologic']['installDir']     = '/opt/SumoCollector'
+
+        # Install Path
+        default['sumologic']['installerDir']     = '/opt/SumoInstaller'
 
         # Installer Name - Either 32bit or 64bit according to the architecture
         default['sumologic']['installerName'] = ''
