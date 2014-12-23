@@ -78,7 +78,7 @@ execute "Deploy Sumo Collector" do
     else
       if [ -f '#{node['sumologic']['installDir']}/uninstall' ]; then
         echo 'Running uninstall...'
-        #{node['sumologic']['installDir']}/uninstall
+        yes | #{node['sumologic']['installDir']}/uninstall
       fi
       echo 'Running install...'
       #{node['sumologic']['installerCmd']} && echo 'Done installing'
