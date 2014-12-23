@@ -73,12 +73,12 @@ Chef::Log.info "  Installing Sumo Logic director at #{node['sumologic']['install
 execute "Deploy Sumo Collector" do
   # iff the blade configs unclude the node name already, don't do anything.  else uninstall then run the installer
   command <<-EOF
-    if egrep #{node['sumologic']['name'] ? node['sumologic']['name'] : node.name} #{node['sumologic']['installerDir']}/config/blades/*json; then
+    if egrep #{node['sumologic']['name'] ? node['sumologic']['name'] : node.name} #{node['sumologic']['installDir']}/config/blades/*json; then
       echo 'Reconfiguration unnecessary; skipping'
     else
-      if [ -f '#{node['sumologic']['installerDir']}/uninstall' ]; then
+      if [ -f '#{node['sumologic']['installDir']}/uninstall' ]; then
         echo 'Running uninstall...'
-        #{node['sumologic']['installerDir']}/uninstall
+        #{node['sumologic']['installDir']}/uninstall
       fi
       echo 'Running install...'
       #{node['sumologic']['installerCmd']} && echo 'Done installing'
