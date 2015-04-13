@@ -75,13 +75,16 @@ execute "Deploy Sumo Collector" do
   command <<-EOF
     if egrep #{node['sumologic']['name'] ? node['sumologic']['name'] : node.name} #{node['sumologic']['installDir']}/config/blades/*json; then
       echo 'Reconfiguration unnecessary; skipping'
+      echo #{Chef::Log.info("    Reconfiguration unnecessary; skipping")}
     else
       if [ -f '#{node['sumologic']['installDir']}/uninstall' ]; then
         echo 'Running uninstall...'
+        echo #{Chef::Log.info("    Running uninstall...")}
         yes | #{node['sumologic']['installDir']}/uninstall
       fi
       echo 'Running install...'
-      #{node['sumologic']['installerCmd']} && echo 'Done installing'
+      echo #{Chef::Log.info("    Running install...")}
+      #{node['sumologic']['installerCmd']} && echo 'Done installing.' && echo #{Chef::Log.info("    Done installing.")}
     fi
   EOF
   cwd node['sumologic']['installerDir']
